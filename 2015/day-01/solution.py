@@ -43,20 +43,39 @@ class PuzzleSolver:
 
         return open_parentheses - close_parentheses
 
-    def __call__(self, *args) -> int:
+    @property
+    def __p2_solution(self) -> int:
+        floor = 0
+
+        for pos, char in enumerate(self.data, start=1):
+            if char == '(':
+                floor += 1
+            elif char == ')':
+                floor -= 1
+
+            if floor == -1:
+                return pos
+
+    def __call__(self, part: int, *args) -> int:
         if args:
             self.sol = args[0]
 
-        if self.sol == 1:
-            return self.__solution_1
-        elif self.sol == 2:
-            return self.__solution_2
+        if part == 1:
+            if self.sol == 1:
+                return self.__solution_1
+            elif self.sol == 2:
+                return self.__solution_2
+            else:
+                raise ValueError(f'Invalid solution number: {self.sol}')
+        elif part == 2:
+            return self.__p2_solution
         else:
-            raise ValueError(f'Invalid solution number: {self.sol}')
+            raise ValueError(f'Invalid part number: {part}')
 
 
 if __name__ == '__main__':
     with InputReader(CWD / 'puzzle.in') as puzzle:
         sol = PuzzleSolver(puzzle)
 
-        print(sol())
+        print(f'Part 1: {sol(1)}')
+        print(f'Part 2: {sol(2)}')

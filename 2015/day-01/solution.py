@@ -28,11 +28,11 @@ class PuzzleSolver:
         self.sol = sol
 
     @property
-    def __solution_1(self) -> int:
+    def __p1_solution_1(self) -> int:
         return self.data.count('(') - self.data.count(')')
 
     @property
-    def __solution_2(self) -> int:
+    def __p1_solution_2(self) -> int:
         open_parentheses, close_parentheses = 0, 0
 
         for char in self.data:
@@ -62,9 +62,9 @@ class PuzzleSolver:
 
         if part == 1:
             if self.sol == 1:
-                return self.__solution_1
+                return self.__p1_solution_1
             elif self.sol == 2:
-                return self.__solution_2
+                return self.__p1_solution_2
             else:
                 raise ValueError(f'Invalid solution number: {self.sol}')
         elif part == 2:
